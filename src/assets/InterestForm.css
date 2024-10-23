@@ -1,0 +1,72 @@
+/* Global styles */
+* {
+    font-size: 16px; /* Set base font size for readability */
+}
+
+/* Container for the entire form */
+.interest-form-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* Title for the interest selection */
+.interest-form-container h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+}
+
+/* Style for the interest label */
+label {
+    display: flex;
+    align-items: center; /* Aligns checkbox and label text vertically */
+    margin: 10px 0;
+    font-size: 18px;
+    color: #444;
+    cursor: pointer;
+}
+
+/* Aligning the checkbox and text neatly */
+label input[type="checkbox"] {
+    margin-right: 10px;
+    transform: scale(1.1); /* Slightly larger checkbox */
+    cursor: pointer;
+}
+
+/* Style for the submit button */
+button[type="submit"] {
+    background-color: #28a745;
+    color: white;
+    font-size: 18px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Button hover effect */
+button[type="submit"]:hover {
+    background-color: #218838;
+}
+
+/* Responsive design adjustments */
+@media (max-width: 768px) {
+    .interest-form-container {
+        padding: 15px;
+    }
+
+    label {
+        font-size: 16px;
+    }
+
+    button[type="submit"] {
+        font-size: 16px;
+        padding: 8px 15px;
+    }
+}

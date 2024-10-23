@@ -1,22 +1,31 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom'; 
 import '../assets/Login.css';
 
 function Login() {
   const { register, handleSubmit, formState: { errors } } = useForm();
+  const navigate = useNavigate();
 
   const onSubmit = async (data) => {
     try {
       const response = await axios.post('/users/login', data);
       console.log(response.data);
-      // Handle successful login, e.g., store the token and redirect
-      localStorage.setItem('token', response.data.token); // Save the token for later use
-      // Redirect user or update UI accordingly
+
+      // Store the token and userId in localStorage
+      localStorage.setItem('token', response.data.token);
+      localStorage.setItem('userId', response.data._id); // Ensure this is correctly returned from your backend
+
+      // Check if it's the first login
+      const firstLogin = response.data.firstLogin; // Make sure your backend sends this property
+      if (firstLogin) {
+        navigate('/interest'); // Redirect to Interest page on first login
+      } else {
+        navigate('/dashboard'); // Redirect to dashboard on subsequent logins
+      }
     } catch (error) {
-      console.error('Error during the login request:', error.response.data);
-      // Optionally show an error message to the user
+      console.error('Error during the login request:', error.response?.data || error.message); // Added optional chaining for safer logging
     }
   };
 

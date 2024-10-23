@@ -1,0 +1,64 @@
+.skill-form-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .skill-form-container h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+  }
+  
+  label {
+    display: block;
+    margin: 10px 0;
+    font-size: 16px;
+    color: #444;
+    cursor: pointer;
+  }
+  
+  label input[type="checkbox"] {
+    margin-right: 10px;
+    transform: scale(1.2);
+    cursor: pointer;
+  }
+  
+  button[type="submit"] {
+    background-color: #28a745;
+    color: white;
+    font-size: 16px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button[type="submit"]:hover {
+    background-color: #218838;
+  }
+  
+  .subcategory-list {
+    margin-left: 20px;
+  }
+  
+  @media (max-width: 768px) {
+    .skill-form-container {
+      padding: 15px;
+    }
+  
+    label {
+      font-size: 14px;
+    }
+  
+    button[type="submit"] {
+      font-size: 14px;
+      padding: 8px 15px;
+    }
+  }
+  
