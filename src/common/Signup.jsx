@@ -9,11 +9,12 @@ const SignUp = () => {
 
   const onSubmit = async (data) => {
     try {
-      data.role_Id = "66d3fb035f0adcf5f220f6fc"
+      data.role_Id = "66d3fb035f0adcf5f220f6fc";
       const response = await axios.post('/users/users', data);
-      console.log(response.data);
+      console.log(response);
     } catch (error) {
-      console.error('Error during the request:', error.response.data); // Log the error response for more context
+       console.log('Error during the request:', error.response.data); // Log the error response for more context
+      
     }
   };
 
