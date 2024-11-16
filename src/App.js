@@ -6,6 +6,7 @@ import Signup from './common/Signup';
 import axios from 'axios';
 import InterestForm from './common/InterestForm';
 import SkillForm from './common/SkillForm';
+import Dashboard from './common/Dashboard';
 
 function App() {
     axios.defaults.baseURL = "http://localhost:5001"
@@ -17,6 +18,7 @@ function App() {
                     <Route path="/signup" element={<Signup />} />
                     <Route path="/interest" element={<InterestForm />} />
                     <Route path="/skillform" element={<SkillForm />} />
+                    <Route path='/dashboard' element={<Dashboard/>}/>
                     <Route path="/" element={<Navigate to="/login" />} />
                 </Routes>
             </div>
