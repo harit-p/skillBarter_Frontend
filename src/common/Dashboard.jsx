@@ -1,15 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const Dashboard = ({ userId }) => {
-  const [userProfile, setUserProfile] = useState(null);
+const Dashboard = () => {
+  const [userprofile,setUserProfile] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [userId, setuserId] = useState()
+
+  const fetchUserId = async()=>{
+    const user= await axios.get("/users/protected",{
+      headers:{
+        "Authorization":"Bearer "+localStorage.getItem("token")
+      }
+    })
+    console.log(user)
+    setuserId(user.data.userId)
+  }
 
   useEffect(() => {
+    //const userId = localStorage.getItem("userId")
+    fetchUserId()
+    
+   
     const fetchUserProfile = async () => {
       try {
-        const response = await axios.get(/userprofile/userprofiles/${userId});
+        console.log(userId)
+        const response = await axios.get(`/userprofileupdate/userprofileupdate/${userId}`);
+        console.log(response)
         setUserProfile(response.data);
       } catch (err) {
         setError('Error fetching user profile');
@@ -17,9 +34,12 @@ const Dashboard = ({ userId }) => {
         setLoading(false);
       }
     };
+  
+    if(userId){
 
     fetchUserProfile();
-  }, [userId]);
+    }
+  },);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -29,7 +49,7 @@ const Dashboard = ({ userId }) => {
     return <div>{error}</div>;
   }
 
-  if (!userProfile) {
+  if (!userprofile) {
     return <div>No user profile found.</div>;
   }
 
@@ -38,9 +58,9 @@ const Dashboard = ({ userId }) => {
       <h1>User Dashboard</h1>
       <div>
         <h2>Skills</h2>
-        {userProfile.skills.length > 0 ? (
+        {userprofile.skills.length > 0 ? (
           <ul>
-            {userProfile.skills.map((skill, index) => (
+            {userprofile.skills.map((skill, index) => (
               <li key={index}>{skill}</li>
             ))}
           </ul>
@@ -51,9 +71,9 @@ const Dashboard = ({ userId }) => {
 
       <div>
         <h2>Interests</h2>
-        {userProfile.interests.length > 0 ? (
+        {userprofile.interests.length > 0 ? (
           <ul>
-            {userProfile.interests.map((interest, index) => (
+            {userprofile.interests.map((interest, index) => (
               <li key={index}>{interest}</li>
             ))}
           </ul>
