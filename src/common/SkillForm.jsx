@@ -61,7 +61,7 @@ const SkillForm = () => { // Removed the need for userId prop, it is fetched fro
 
       if (response.ok) {
         alert('Your skills have been saved!');
-        navigate('/nextpage'); // Replace with the correct route for the next page
+        navigate('/dashboard'); // Replace with the correct route for the next page
       } else {
         const errorData = await response.json();
         console.error('Error updating profile:', errorData.message);

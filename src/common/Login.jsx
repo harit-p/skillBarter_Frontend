@@ -13,9 +13,10 @@ function Login() {
       const response = await axios.post('/users/login', data);
       console.log(response.data);
 
+      //console.log()
       // Store the token and userId in localStorage
       localStorage.setItem('token', response.data.token);
-      localStorage.setItem('userId', response.data._id); // Ensure this is correctly returned from your backend
+      localStorage.setItem('userId', response.data.userId); // Ensure this is correctly returned from your backend
       
 
       // Check if it's the first login

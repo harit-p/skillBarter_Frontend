@@ -85,6 +85,7 @@ const InterestForm = () => {
   
     // Retrieve userId from localStorage
     const userId = localStorage.getItem('userId');
+    console.log(userId)
     if (!userId) {
       console.error('Error: userId is undefined');
       alert('User ID is not available. Please log in again.');
@@ -103,7 +104,7 @@ const InterestForm = () => {
     };
   
     try {
-      const response = await fetch('http://localhost:5001/userprofile/userprofile/user_Id', {
+      const response = await fetch('http://localhost:5001/userprofile/userprofile/'+userId, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
