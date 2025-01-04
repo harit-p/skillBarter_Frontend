@@ -16,13 +16,15 @@ function Login() {
       // Store the token and userId in localStorage
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('userId', response.data._id); // Ensure this is correctly returned from your backend
+      
 
       // Check if it's the first login
       const firstLogin = response.data.firstLogin; // Make sure your backend sends this property
       if (firstLogin) {
         navigate('/interest'); // Redirect to Interest page on first login
       } else {
-        navigate('/dashboard'); // Redirect to dashboard on subsequent logins
+        navigate('/interest');
+        // navigate('/dashboard'); // Redirect to dashboard on subsequent logins
       }
     } catch (error) {
       console.error('Error during the login request:', error.response?.data || error.message); // Added optional chaining for safer logging

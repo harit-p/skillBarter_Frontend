@@ -38,47 +38,94 @@ const InterestForm = () => {
     setSelectedInterests((prev) => ({ ...prev, [name]: checked }));
   };
 
+  // const handleSubmit = async (event) => {
+  //   event.preventDefault();
+
+  //   // Retrieve userId from localStorage
+  //   const userId = localStorage.getItem('userId');
+    
+  //   if (!userId) {
+  //     console.error('Error: userId is undefined');
+  //     return;
+  //   }
+
+  //   const selectedInterestIds = Object.keys(selectedInterests).filter(interestId => selectedInterests[interestId]);
+
+  //   // Prepare user profile data
+  //   const userProfileData = {
+  //     user_Id: userId,
+  //     interests: selectedInterestIds,
+  //   };
+
+  //   try {
+  //     const response = await fetch('http://localhost:5001/userprofile/userprofile', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify(userProfileData),
+  //     });
+
+  //     if (response.ok) {
+  //       // Mark user as having visited the interests form
+  //       localStorage.setItem('visited', 'true');
+  //       alert('Your interests have been saved!');
+  //       navigate('/skillform');
+  //     } else {
+  //       const errorData = await response.json();
+  //       console.error('Error updating profile:', errorData.message);
+  //     }
+  //   } catch (error) {
+  //     console.error('Error saving interests:', error);
+  //   }
+  // };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+  
     // Retrieve userId from localStorage
     const userId = localStorage.getItem('userId');
-    
     if (!userId) {
       console.error('Error: userId is undefined');
+      alert('User ID is not available. Please log in again.');
       return;
     }
-
-    const selectedInterestIds = Object.keys(selectedInterests).filter(interestId => selectedInterests[interestId]);
-
+  
+    const selectedInterestIds = Object.keys(selectedInterests).filter(
+      (interestId) => selectedInterests[interestId]
+    );
+  
     // Prepare user profile data
     const userProfileData = {
       user_Id: userId,
       interests: selectedInterestIds,
+      // Add other required fields if needed, like firstName
     };
-
+  
     try {
-      const response = await fetch('http://localhost:5001/userprofile/userprofile', {
-        method: 'POST',
+      const response = await fetch('http://localhost:5001/userprofile/userprofile/user_Id', {
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(userProfileData),
       });
-
+  
       if (response.ok) {
-        // Mark user as having visited the interests form
         localStorage.setItem('visited', 'true');
         alert('Your interests have been saved!');
         navigate('/skillform');
       } else {
         const errorData = await response.json();
         console.error('Error updating profile:', errorData.message);
+        alert('Failed to update profile. Please try again.');
       }
     } catch (error) {
       console.error('Error saving interests:', error);
+      alert('An error occurred. Please try again later.');
     }
   };
+  
 
   // Render loading state if interests are not yet fetched
   if (!interests.length) {
