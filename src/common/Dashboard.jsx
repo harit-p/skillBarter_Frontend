@@ -18,14 +18,14 @@ const Dashboard = () => {
   }
 
   useEffect(() => {
-    //const userId = localStorage.getItem("userId")
+    const userId = localStorage.getItem("userId")
     fetchUserId()
     
    
     const fetchUserProfile = async () => {
       try {
         console.log(userId)
-        const response = await axios.get(`/userprofileupdate/userprofileupdate/${userId}`);
+        const response = await axios.get(`/userprofileupdate/userprofileupdate/`+userId);
         console.log(response)
         setUserProfile(response.data);
       } catch (err) {

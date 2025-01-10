@@ -24,8 +24,8 @@ function Login() {
       if (firstLogin) {
         navigate('/interest'); // Redirect to Interest page on first login
       } else {
-        navigate('/interest');
-        // navigate('/dashboard'); // Redirect to dashboard on subsequent logins
+        // navigate('/interest');
+        navigate('/dashboard'); // Redirect to dashboard on subsequent logins
       }
     } catch (error) {
       console.error('Error during the login request:', error.response?.data || error.message); // Added optional chaining for safer logging
