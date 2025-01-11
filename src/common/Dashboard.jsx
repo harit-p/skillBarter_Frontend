@@ -2,31 +2,34 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const Dashboard = () => {
-  const [userprofile,setUserProfile] = useState(null);
+  const [userprofile, setUserProfile] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [userId, setuserId] = useState()
+  const [userId, setuserId] = useState(null);
 
-  const fetchUserId = async()=>{
-    const user= await axios.get("/users/users",{
-      headers:{
-        "Authorization":"Bearer "+localStorage.getItem("token")
-      }
-    })
-    console.log(user)
-    setuserId(user.data.userId)
-  }
+  const fetchUserId = async () => {
+    try {
+      const user = await axios.get("/users/users", {
+        headers: {
+          "Authorization": "Bearer " + localStorage.getItem("token"),
+        },
+      });
+      setuserId(user.data.userId);
+    } catch (err) {
+      setError("Error fetching user ID");
+    }
+  };
 
   useEffect(() => {
-    const userId = localStorage.getItem("userId")
-    fetchUserId()
-    
-   
+    fetchUserId();
+  }, []);
+
+  useEffect(() => {
+    if (!userId) return;
+
     const fetchUserProfile = async () => {
       try {
-        console.log(userId)
-        const response = await axios.get(`/userprofileupdate/userprofileupdate/`+userId);
-        console.log(response)
+        const response = await axios.get("/userprofile/userprofile/"+userId);
         setUserProfile(response.data);
       } catch (err) {
         setError('Error fetching user profile');
@@ -34,12 +37,9 @@ const Dashboard = () => {
         setLoading(false);
       }
     };
-  
-    if(userId){
 
     fetchUserProfile();
-    }
-  },);
+  }, [userId]);
 
   // if (loading) {
   //   return <div>Loading...</div>;
@@ -58,10 +58,11 @@ const Dashboard = () => {
       <h1>User Dashboard</h1>
       <div>
         <h2>Skills</h2>
-        {userprofile.skills.length > 0 ? (
+        {userprofile.skills && userprofile.skills.length > 0 ? (
           <ul>
             {userprofile.skills.map((skill, index) => (
-              <li key={index}>{skill}</li>
+              // Assuming skill is an object with the key `skill_name`
+              <li key={index}>{skill.skill_name || "No skill name"}</li>
             ))}
           </ul>
         ) : (
@@ -71,10 +72,11 @@ const Dashboard = () => {
 
       <div>
         <h2>Interests</h2>
-        {userprofile.interests.length > 0 ? (
+        {userprofile.interests && userprofile.interests.length > 0 ? (
           <ul>
             {userprofile.interests.map((interest, index) => (
-              <li key={index}>{interest}</li>
+              // Assuming interest is an object with the key `interest_name`
+              <li key={index}>{interest.interest_name || "No interest name"}</li>
             ))}
           </ul>
         ) : (
